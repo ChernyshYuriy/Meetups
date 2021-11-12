@@ -26,6 +26,7 @@ function MeetupItem(props) {
         <div>
           <h3>{props.item.title}</h3>
           <address>{props.item.address}</address>
+          <a href={props.item.mapLink}>Map link</a>
           <p>{props.item.description}</p>
         </div>
         <div className={StyleItem.actions}>

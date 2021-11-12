@@ -8,6 +8,10 @@ function Form(props) {
   const ImgRef = useRef()
   const AddressRef = useRef()
   const DescRef = useRef()
+  const MapLinkRef = useRef()
+
+
+  
 
 
   function submitHandler(e) {
@@ -16,12 +20,17 @@ function Form(props) {
     const enteredImg = ImgRef.current.value;
     const enteredAddress = AddressRef.current.value;
     const enteredDesc = DescRef.current.value;
+    const enteredMapLink = MapLinkRef.current.value;
+
+
+    
 
     const meetupData ={
       title: enteredTitle,
       img: enteredImg,
       address: enteredAddress,
-      desc: enteredDesc
+      desc: enteredDesc,
+      mapLink : enteredMapLink
     }
     // console.log(meetupData);
     props.onAddMeetup(meetupData)
@@ -32,7 +41,7 @@ function Form(props) {
       <form className={StylesElem.form} onSubmit={submitHandler}>
         <div className={StylesElem.control}>
           <label htmlFor="title">Title</label>
-          <input required type="text" id="title" placeholder="TEXT" ref={TitleRef}/>
+          <input required type="text" id="title" placeholder="text" ref={TitleRef}/>
         </div>
         <div className={StylesElem.control}>
           <label htmlFor="image">Image</label>
@@ -40,7 +49,11 @@ function Form(props) {
         </div>
         <div className={StylesElem.control}>
           <label htmlFor="address">Address</label>
-          <input required type="text" id="address" placeholder="image" ref={AddressRef} />
+          <input required type="text" id="address" placeholder="address" ref={AddressRef} />
+        </div>
+        <div className={StylesElem.control}>
+          <label htmlFor="address">Link Map</label>
+          <input required type="text" id="address" placeholder="Map link" ref={MapLinkRef} />
         </div>
         <div className={StylesElem.control}>
           <label htmlFor="description">Description</label>
