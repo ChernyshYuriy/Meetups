@@ -7,9 +7,9 @@ function NewMeetup() {
 
   function onAddMeetupHandler(data) {
     fetch(
-      "https://first-react-7b400-default-rtdb.firebaseio.com/meetups/-MnpuqyalmzlAVwGORPE.json",
+      "https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json",
       {
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application.json",
