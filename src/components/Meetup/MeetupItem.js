@@ -3,6 +3,7 @@ import { useContext } from "react";
 import Card from "../ui/Card";
 import StyleItem from "../../css/MeetupItem.module.css";
 import FavoritesContext from "../../store/favorites";
+import GoogleMap from "./GoogleMap";
 
 function MeetupItem(props) {
   const favoriteContex = useContext(FavoritesContext);
@@ -27,6 +28,9 @@ function MeetupItem(props) {
           <h3>{props.item.title}</h3>
           <address>{props.item.address}</address>
           <a href={props.item.mapLink} target="_blank" rel="noopener noreferrer">Map link</a>
+          {props.item.map !== undefined && props.item.map.meetPlace !== undefined ? <div>props.item.map.meetPlace</div> : null}
+          {props.item.map !== undefined && props.item.map.mapData !== undefined ? <GoogleMap mapData={props.item.map.mapData} /> : null}
+          
           <p>{props.item.description}</p>
         </div>
         <div className={StyleItem.actions}>
