@@ -2,6 +2,10 @@
   margin: 1rem 0;
 }
 
+.information{
+  padding: 0 1.5rem;
+}
+
 .image {
   width: 100%;
   height: 20rem;
