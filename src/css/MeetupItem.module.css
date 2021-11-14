@@ -15,12 +15,12 @@
   object-fit: cover;
 }
 
-title{
+/* title{
   color: red;
 }
 address{
   color: red;
-}
+} */
 
 .map-link{
   display: block;
@@ -40,6 +40,8 @@ address{
 
 .actions {
   padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
   text-align: center;
 }
 

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import MeetupList from "../components/Meetup/MeetupList";
+// import MeetupList from "../components/Meetup/MeetupList";
+import MeetupItem from "../components/Meetup/MeetupItem";
+import StyleItem from "../css/MeetupList.module.css";
 // const DUMMY_DATA = [
 //   {
 //     id: "m1",
@@ -33,21 +35,39 @@ function AllMeetupsPage() {
         return response.json();
       })
       .then((data) => {
-        let newData = []
+        let newData = [];
         for (const key in data) {
-          const meetup ={
+          const meetup = {
             id: key,
-            ...data[key]
-          }
-          newData.push(meetup)
-
+            ...data[key],
+          };
+          newData.push(meetup);
         }
-        console.log(newData, 'newData');
+        console.log(newData, "newData");
         setLoading(false);
-        console.log(data);
+        console.log(newData);
         setDataMeetups(newData);
       });
   }, []);
+
+  function deleteMeetup(id) {
+    console.log(id);
+    const newData = dataMeetups.filter((meetup) => meetup.id !== id);
+    console.log(newData);
+    fetch(
+      `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
+      {
+        method: "PUT",
+        body: JSON.stringify(newData),
+        headers: {
+          "Content-Type": "application.json",
+        },
+      }
+    ).then((response) => {
+      console.log(response);
+      setDataMeetups(newData);
+    });
+  }
 
   if (!!loadingData) {
     return <h1>Loading ...</h1>;
@@ -62,7 +82,14 @@ function AllMeetupsPage() {
         <li key={item.id}>{item.title}</li>)
       })}
       </ul> */}
-      <MeetupList items={dataMeetups} />
+      <ul className={StyleItem.MeetupList}>
+        {dataMeetups.map((item) => {
+          return (
+            <MeetupItem deleteMeetup={deleteMeetup} key={item.id} item={item} />
+          );
+        })}
+      </ul>
+      {/* <MeetupList items={dataMeetups} /> */}
     </div>
   );
 }

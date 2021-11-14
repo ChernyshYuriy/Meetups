@@ -5,9 +5,18 @@ import StyleItem from "../../css/MeetupItem.module.css";
 import FavoritesContext from "../../store/favorites";
 
 function MeetupItem(props) {
+  
   const favoriteContex = useContext(FavoritesContext);
 
   const itemIsFavorite = favoriteContex.itemIsFavorite(props.item.id);
+
+
+  // let [deleting, setDeletingStatus] = useState(false)
+  // setDeletingStatus(true)
+
+  function deleteMeetup() {
+    props.deleteMeetup(props.item.id)
+  }
 
   function toggleFavorite() {
     if (itemIsFavorite) {
@@ -31,6 +40,7 @@ function MeetupItem(props) {
         </div>
         <div className={StyleItem.actions}>
           <button onClick={toggleFavorite}>{itemIsFavorite? 'It is ': 'Add to '} favorite</button>
+          <button onClick={deleteMeetup}>{itemIsFavorite? 'Deleting ...': 'Delete'}</button>
         </div>
       </Card>
     </div>
