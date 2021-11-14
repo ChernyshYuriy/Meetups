@@ -24,9 +24,9 @@ function MeetupItem(props) {
           <img src={props.item.img} alt={props.item.title} />
         </div>
         <div>
-          <h3>{props.item.title}</h3>
-          <address>{props.item.address}</address>
-          <a href={props.item.mapLink} target="_blank" rel="noopener noreferrer">Map link</a>
+          <h3 className={StyleItem.title}> {props.item.title}</h3>
+          <div className={StyleItem.address}>{props.item.address}</div>
+          <a className={StyleItem['map-link']} href={props.item.mapLink} target="_blank" rel="noopener noreferrer">Map</a>
           <p>{props.item.description}</p>
         </div>
         <div className={StyleItem.actions}>
