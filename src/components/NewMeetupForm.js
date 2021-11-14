@@ -41,28 +41,28 @@ function Form(props) {
       <form className={StylesElem.form} onSubmit={submitHandler}>
         <div className={StylesElem.control}>
           <label htmlFor="title">Title</label>
-          <input required type="text" id="title" placeholder="text" ref={TitleRef}/>
+          <input required type="text" id="title" placeholder="Title" ref={TitleRef}/>
         </div>
         <div className={StylesElem.control}>
           <label htmlFor="image">Image</label>
-          <input required type="url" id="image" placeholder="image" ref={ImgRef} />
+          <input required type="url" id="image" placeholder="Image" ref={ImgRef} />
         </div>
         <div className={StylesElem.control}>
           <label htmlFor="address">Address</label>
-          <input required type="text" id="address" placeholder="address" ref={AddressRef} />
+          <input required type="text" id="address" placeholder="Address" ref={AddressRef} />
         </div>
         <div className={StylesElem.control}>
-          <label htmlFor="address">Link Map</label>
-          <input required type="text" id="address" placeholder="Map link" ref={MapLinkRef} />
+          <label htmlFor="map">Link Map</label>
+          <input type="text" id="map" placeholder="Map" ref={MapLinkRef} />
         </div>
         <div className={StylesElem.control}>
           <label htmlFor="description">Description</label>
           <textarea
-            required
+          className={StylesElem.textarea}
             type="text"
             id="description"
             row="5"
-            placeholder="description"
+            placeholder="Description"
             ref={DescRef}
           />
         </div>

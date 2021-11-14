@@ -27,7 +27,7 @@ function MeetupItem(props) {
           <h3 className={StyleItem.title}> {props.item.title}</h3>
           <div className={StyleItem.address}>{props.item.address}</div>
           <a className={StyleItem['map-link']} href={props.item.mapLink} target="_blank" rel="noopener noreferrer">Map</a>
-          <p>{props.item.description}</p>
+          <p>{props.item.desc}</p>
         </div>
         <div className={StyleItem.actions}>
           <button onClick={toggleFavorite}>{itemIsFavorite? 'It is ': 'Add to '} favorite</button>
