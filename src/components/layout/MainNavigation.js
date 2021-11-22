@@ -10,7 +10,7 @@ function MainNav(props) {
     <header className={headerStyles.header}>
       <div className={headerStyles.logo}>
         {/* <img src="../../img/logo192.png" alt="" /> */}
-        ReactDOM
+        Walkers Meetings
       </div>
       <nav>
         <ul>

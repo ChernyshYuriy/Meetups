@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 
-
-const FavoritesContext = createContext({
+const MeetupsContext = createContext({
   meetups: [],
   loaded: false,
   editingMeetup: 0,
@@ -9,26 +8,30 @@ const FavoritesContext = createContext({
   addMeetup: (meetup) => {},
   removeMeetup: (meetupId) => {},
   editMeetup: (meetupId) => {},
+  editRequest: (meetupId) => {},
 });
 
-export function FavoritesContextProvider(props) {
+export function MeetupsContextProvider(props) {
   const [allMeetups, setAllMeetups] = useState([]);
   const [allLoaded, setLoading] = useState(false);
   const [editingMeetup, setEditingMeetup] = useState(null);
 
   const context = {
-    favorites: allMeetups,
+    meetups: allMeetups,
     loaded: allLoaded,
-    editingMeetup,
-    getMeetup: addMeetupGetter,
-    addFavorite: addMeetupHandler,
-    removeFavorite: removeMeetupHandler,
+    editingMeetup: editingMeetup,
+    getMeetup: meetupGetter,
+    addMeetup: addMeetupHandler,
+    removeMeetup: removeMeetupHandler,
     editMeetup: editMeetupHandler,
+    editRequest: editMeetupHandlerRequest,
   };
 
-  function addMeetupGetter(favorite) {
+  function meetupGetter() {
+    // console.log(1);
     fetch("https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json")
       .then((response) => {
+        //console.log(1111);
         return response.json();
       })
       .then((data) => {
@@ -40,9 +43,9 @@ export function FavoritesContextProvider(props) {
           };
           newData.push(meetup);
         }
-        console.log(newData, "newData");
-        setLoading(false);
-        console.log(newData);
+        // console.log(newData, "newData");
+        setLoading(true);
+        // console.log(newData);
         setAllMeetups(newData);
       });
   }
@@ -60,38 +63,69 @@ export function FavoritesContextProvider(props) {
     )
       .then((resolve) => {
         //nav('/')
+        document.getElementById("new-meetup-form").reset();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
     // setAllMeetups((prevMeetups) => prevFavorites.concat(favorite));
   }
   function removeMeetupHandler(meetupId) {
-    setAllMeetups((prevMeetups) => {
-      const newData = prevMeetups.filter((meetup) => meetup.id !== meetupId);
-      console.log(newData);
-      fetch(
-        `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
-        {
-          method: "PUT",
-          body: JSON.stringify(newData),
-          headers: {
-            "Content-Type": "application.json",
-          },
-        }
-      ).then((response) => {
-        console.log(response);
-        return newData;
-      });
-    });
+    const newData = allMeetups.filter((meetup) => meetup.id !== meetupId);
+    // console.log(allMeetups);
+
+    fetch(
+      `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
+      {
+        method: "PUT",
+        body: JSON.stringify(newData),
+        headers: {
+          "Content-Type": "application.json",
+        },
+      }
+    )
+      .then((response) => {
+        setAllMeetups(newData);
+
+      })
   }
 
   function editMeetupHandler(meetupId) {
-    setEditingMeetup(allMeetups.filter((meetup) => meetup.id === meetupId));
+    setEditingMeetup(allMeetups.filter((meetup) => meetup.id === meetupId)[0]);
+  }
+
+  function editMeetupHandlerRequest(editedMeetup) {
+    // const newData = allMeetups.filter((meetup) => meetup.id !== meetupId);
+    // console.log(allMeetups);
+
+    const newData = allMeetups.map((meetup) => {
+      if (meetup.id === editingMeetup.id) {
+        return {
+          ...editedMeetup,
+          id: editingMeetup.id,
+        };
+      } else {
+        return meetup;
+      }
+    });
+
+    fetch(
+      `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
+      {
+        method: "PUT",
+        body: JSON.stringify(newData),
+        headers: {
+          "Content-Type": "application.json",
+        },
+      }
+    ).then((response) => {
+      setAllMeetups(newData);
+      setEditingMeetup(editedMeetup)
+    });
   }
 
   return (
-    <FavoritesContext.Provider value={context}>
+    <MeetupsContext.Provider value={context}>
       {props.children}
-    </FavoritesContext.Provider>
+    </MeetupsContext.Provider>
   );
 }
-export default FavoritesContext;
+export default MeetupsContext;

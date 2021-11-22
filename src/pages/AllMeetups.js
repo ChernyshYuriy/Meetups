@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 // import MeetupList from "../components/Meetup/MeetupList";
+import MeetupsContext from "../store/meetUpsState";
 import MeetupItem from "../components/Meetup/MeetupItem";
 import StyleItem from "../css/MeetupList.module.css";
+
 // const DUMMY_DATA = [
 //   {
 //     id: "m1",
@@ -24,52 +26,67 @@ import StyleItem from "../css/MeetupList.module.css";
 // ];
 
 function AllMeetupsPage() {
-  const [loadingData, setLoading] = useState(true);
+  const AllMeetups = useContext(MeetupsContext);
 
-  const [dataMeetups, setDataMeetups] = useState([]);
+  // const [loadingData, setLoading] = useState(true);
+
+  // const [dataMeetups, setDataMeetups] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    fetch("https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let newData = [];
-        for (const key in data) {
-          const meetup = {
-            id: key,
-            ...data[key],
-          };
-          newData.push(meetup);
-        }
-        console.log(newData, "newData");
-        setLoading(false);
-        console.log(newData);
-        setDataMeetups(newData);
-      });
+    AllMeetups.getMeetup();
   }, []);
 
-  function deleteMeetup(id) {
-    console.log(id);
-    const newData = dataMeetups.filter((meetup) => meetup.id !== id);
-    console.log(newData);
-    fetch(
-      `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
-      {
-        method: "PUT",
-        body: JSON.stringify(newData),
-        headers: {
-          "Content-Type": "application.json",
-        },
-      }
-    ).then((response) => {
-      console.log(response);
-      setDataMeetups(newData);
-    });
-  }
+  // const getMeetup = AllMeetups.getMeetup;
 
-  if (!!loadingData) {
+//console.log(AllMeetups.meetups);
+  
+
+
+
+  // setLoading(true);
+  // fetch("https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json")
+  //   .then((response) => {
+  //     return response.json();
+  //   })
+  //   .then((data) => {
+  //     let newData = [];
+  //     for (const key in data) {
+  //       const meetup = {
+  //         id: key,
+  //         ...data[key],
+  //       };
+  //       newData.push(meetup);
+  //     }
+  //     console.log(newData, "newData");
+  //     setLoading(false);
+  //     console.log(newData);
+  //     setDataMeetups(newData);
+  //   });
+
+  // console.log(AllMeetups.getMeetup);
+
+  // console.log(AllMeetups);
+
+  // function deleteMeetup(id) {
+  //   console.log(id);
+  //   const newData = dataMeetups.filter((meetup) => meetup.id !== id);
+  //   console.log(newData);
+  //   fetch(
+  //     `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
+  //     {
+  //       method: "PUT",
+  //       body: JSON.stringify(newData),
+  //       headers: {
+  //         "Content-Type": "application.json",
+  //       },
+  //     }
+  //   ).then((response) => {
+  //     console.log(response);
+  //     setDataMeetups(newData);
+  //   });
+  // }
+
+  if (!AllMeetups.loaded) {
     return <h1>Loading ...</h1>;
   }
 
@@ -83,9 +100,9 @@ function AllMeetupsPage() {
       })}
       </ul> */}
       <ul className={StyleItem.MeetupList}>
-        {dataMeetups.map((item) => {
+        {AllMeetups.meetups.map((item) => {
           return (
-            <MeetupItem deleteMeetup={deleteMeetup} key={item.id} item={item} />
+            <MeetupItem deleteMeetup={AllMeetups.removeMeetup} key={item.id} item={item} />
           );
         })}
       </ul>

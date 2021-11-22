@@ -49,7 +49,7 @@ address{
   text-align: center;
 }
 
-.actions button {
+.actions .button {
   font: inherit;
   cursor: pointer;
   color: #77002e;
