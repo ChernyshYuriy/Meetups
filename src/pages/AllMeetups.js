@@ -41,7 +41,7 @@ function AllMeetupsPage() {
   //console.log(AllMeetups.meetups);
 
   // setLoading(true);
-  // fetch("https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json")
+  // fetch("https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json")
   //   .then((response) => {
   //     return response.json();
   //   })
@@ -69,7 +69,7 @@ function AllMeetupsPage() {
   //   const newData = dataMeetups.filter((meetup) => meetup.id !== id);
   //   console.log(newData);
   //   fetch(
-  //     `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
+  //     `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
   //     {
   //       method: "PUT",
   //       body: JSON.stringify(newData),

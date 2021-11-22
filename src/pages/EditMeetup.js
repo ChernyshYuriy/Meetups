@@ -25,7 +25,7 @@ function EditMeetup() {
   //   // console.log(AllMeetups.editingMeetup.id, 'AllMeetups.editingMeetup');
   //   // console.log({...data,id:AllMeetups.editingMeetup.id} == AllMeetups.editingMeetup, {...data,id:AllMeetups.editingMeetup.id} === AllMeetups.editingMeetup, 'data == AllMeetups.editingMeetup, data === AllMeetups.editingMeetup');
   //   // fetch(
-  //   //   "https://first-react-7b400-default-rtdb.firebaseio.com/meetups/" + JSON.stringify(AllMeetups.editingMeetup.id) +".json",
+  //   //   "https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups/" + JSON.stringify(AllMeetups.editingMeetup.id) +".json",
   //   //   {
   //   //     method: "PUT",
   //   //     body: JSON.stringify(data),

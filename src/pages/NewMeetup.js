@@ -12,7 +12,7 @@ function NewMeetup() {
 
   // function onAddMeetupHandler(data) {
   //   fetch(
-  //     "https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json",
+  //     "https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json",
   //     {
   //       method: "POST",
   //       body: JSON.stringify(data),
