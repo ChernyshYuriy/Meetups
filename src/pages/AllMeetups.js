@@ -34,14 +34,11 @@ function AllMeetupsPage() {
 
   useEffect(() => {
     AllMeetups.getMeetup();
-  }, []);
+  }, [AllMeetups]);
 
   // const getMeetup = AllMeetups.getMeetup;
 
-//console.log(AllMeetups.meetups);
-  
-
-
+  //console.log(AllMeetups.meetups);
 
   // setLoading(true);
   // fetch("https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json")
@@ -102,7 +99,11 @@ function AllMeetupsPage() {
       <ul className={StyleItem.MeetupList}>
         {AllMeetups.meetups.map((item) => {
           return (
-            <MeetupItem deleteMeetup={AllMeetups.removeMeetup} key={item.id} item={item} />
+            <MeetupItem
+              deleteMeetup={AllMeetups.removeMeetup}
+              key={item.id}
+              item={item}
+            />
           );
         })}
       </ul>
