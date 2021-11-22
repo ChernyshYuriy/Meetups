@@ -8,14 +8,14 @@ function FavoritesPage() {
   let contexHTML;
 
   if (favoriteContex.totalFavorites === 0) {
-    contexHTML = <p>No Favorites</p>;
+    contexHTML = <p>No favourites</p>;
   } else {
     contexHTML = <MeetupList items={favoriteContex.favorites} />;
   }
 
   return (
     <div>
-      <h1> Favorites</h1>
+      <h1> favourites</h1>
       <div>{contexHTML}</div>
     </div>
   );
