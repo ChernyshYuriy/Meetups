@@ -64,7 +64,7 @@ function MeetupItem(props) {
         </div>
         <div className={StyleItem.actions}>
           <button className={StyleItem.button} onClick={toggleFavorite}>
-            {itemIsFavorite ? "It is " : "Add to "} favorite
+            {itemIsFavorite ? "It is " : "Add to "} favourite
           </button>
           <button className={StyleItem.button} onClick={OpenEdit}>
             Edit

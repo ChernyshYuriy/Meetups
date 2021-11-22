@@ -66,7 +66,7 @@ export function MeetupsContextProvider(props) {
         document.getElementById("new-meetup-form").reset();
       })
       .catch((err) => console.error(err));
-    // setAllMeetups((prevMeetups) => prevFavorites.concat(favorite));
+    // setAllMeetups((prevMeetups) => prevFavorites.concat(favourite));
   }
   function removeMeetupHandler(meetupId) {
     const newData = allMeetups.filter((meetup) => meetup.id !== meetupId);
