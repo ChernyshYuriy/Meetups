@@ -10,12 +10,13 @@ function FavoritesPage() {
   if (favoriteContex.totalFavorites === 0) {
     contexHTML = <p>No favourites</p>;
   } else {
+    console.log(favoriteContex.favorites);
     contexHTML = <MeetupList items={favoriteContex.favorites} />;
   }
 
   return (
     <div>
-      <h1> favourites</h1>
+      <h2> Favourites</h2>
       <div>{contexHTML}</div>
     </div>
   );

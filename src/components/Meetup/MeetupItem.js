@@ -6,8 +6,15 @@ import Card from "../ui/Card";
 import StyleItem from "../../css/MeetupItem.module.css";
 import FavoritesContext from "../../store/favorites";
 import MeetupsContext from "../../store/meetUpsState";
+import { useLocation } from 'react-router-dom'
+
+
+
 
 function MeetupItem(props) {
+  const location = useLocation();
+  console.log(location.pathname);
+  
   const nav = useNavigate();
 
   const AllMeetups = useContext(MeetupsContext);
@@ -16,6 +23,8 @@ function MeetupItem(props) {
   const favoriteContex = useContext(FavoritesContext);
 
   const itemIsFavorite = favoriteContex.itemIsFavorite(props.item.id);
+
+  const favouriteUiBtnText = location.pathname === '/favorites' ? "Remove from " : "It is  "
 
   // let [deleting, setDeletingStatus] = useState(false)
   // setDeletingStatus(true)
@@ -64,14 +73,15 @@ function MeetupItem(props) {
         </div>
         <div className={StyleItem.actions}>
           <button className={StyleItem.button} onClick={toggleFavorite}>
-            {itemIsFavorite ? "It is " : "Add to "} favourite
+            {itemIsFavorite ? favouriteUiBtnText : "Add to "} favourite
           </button>
-          <button className={StyleItem.button} onClick={OpenEdit}>
+          {location.pathname === '/favorites' ? null : (<button className={StyleItem.button} onClick={OpenEdit}>
             Edit
-          </button>
-          <button className={StyleItem.button} onClick={deleteMeetup}>
-            {itemIsFavorite ? "Deleting ..." : "Delete"}
-          </button>
+          </button>)}
+          {location.pathname === '/favorites' ? null : (<button className={StyleItem.button} onClick={deleteMeetup}>
+            Delete
+          </button>)}
+          
         </div>
       </Card>
     </div>

@@ -19,7 +19,7 @@ function MainNav(props) {
           </li>
           <li>
             <Link to="/favorites">
-              favourites{" "}
+              Favourites{" "}
               {favoriteContex.totalFavorites === 0
                 ? ""
                 : favoriteContex.totalFavorites}

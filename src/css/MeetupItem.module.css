@@ -63,3 +63,27 @@ address{
 .actions button:active {
   background-color: #ffe2ed;
 }
+
+@media screen and (max-width: 600px) {
+  .image{
+      width: 100%;
+      height: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .actions{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    padding-bottom: 25px;
+  }
+  .actions .button {
+    margin: 8px 0px;
+    font-size: 18px;
+  }
+  .actions .button:last-child {
+    margin-bottom: 0;
+  }
+
+}

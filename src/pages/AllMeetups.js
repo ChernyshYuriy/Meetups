@@ -1,8 +1,8 @@
 import { useEffect, useContext } from "react";
-// import MeetupList from "../components/Meetup/MeetupList";
+import MeetupList from "../components/Meetup/MeetupList";
 import MeetupsContext from "../store/meetUpsState";
-import MeetupItem from "../components/Meetup/MeetupItem";
-import StyleItem from "../css/MeetupList.module.css";
+// import MeetupItem from "../components/Meetup/MeetupItem";
+// import StyleItem from "../css/MeetupList.module.css";
 
 // const DUMMY_DATA = [
 //   {
@@ -89,14 +89,14 @@ function AllMeetupsPage() {
 
   return (
     <div>
-      <h1>All Meetups</h1>
+      <h2>All Meetups</h2>
       {/* <ul>
       {DUMMY_DATA.map((item) => {
         return (
         <li key={item.id}>{item.title}</li>)
       })}
       </ul> */}
-      <ul className={StyleItem.MeetupList}>
+      {/* <ul className={StyleItem.list}>
         {AllMeetups.meetups.map((item) => {
           return (
             <MeetupItem
@@ -106,7 +106,8 @@ function AllMeetupsPage() {
             />
           );
         })}
-      </ul>
+      </ul> */}
+      <MeetupList items={AllMeetups.meetups} />
       {/* <MeetupList items={dataMeetups} /> */}
     </div>
   );
