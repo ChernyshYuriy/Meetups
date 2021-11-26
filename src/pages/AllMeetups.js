@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import MeetupList from "../components/Meetup/MeetupList";
 import MeetupsContext from "../store/meetUpsState";
 // import MeetupItem from "../components/Meetup/MeetupItem";
@@ -32,9 +32,9 @@ function AllMeetupsPage() {
 
   // const [dataMeetups, setDataMeetups] = useState([]);
 
-  useEffect(() => {
+  // useEffect(() => {  }, []);
     AllMeetups.getMeetup();
-  }, [AllMeetups]);
+
 
   // const getMeetup = AllMeetups.getMeetup;
 

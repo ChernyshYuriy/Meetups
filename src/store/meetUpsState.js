@@ -47,6 +47,13 @@ export function MeetupsContextProvider(props) {
         setLoading(true);
         // console.log(newData);
         setAllMeetups(newData);
+
+        (() => {const searchMeetup = document.querySelector("#searchedMeetup");
+        if (searchMeetup && searchMeetup.offsetTop) {
+          setTimeout(() => {
+            window.scroll(0, searchMeetup.offsetTop - 10)
+          }, 500);
+        }})()
       });
   }
 

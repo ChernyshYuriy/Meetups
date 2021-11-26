@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 // import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -13,8 +13,14 @@ import { useLocation } from 'react-router-dom'
 
 function MeetupItem(props) {
   const location = useLocation();
-  console.log(location.pathname);
-  
+
+  const urlSearchParams = location.search;
+  const searchId = urlSearchParams.split('').splice(4, location.search.length)
+  let searchIdMeetup = ''
+  searchId.forEach((leter) =>  searchIdMeetup += leter )
+
+  const urlForLink = `${window.location.origin}?id=${props.item.id}`
+
   const nav = useNavigate();
 
   const AllMeetups = useContext(MeetupsContext);
@@ -25,9 +31,20 @@ function MeetupItem(props) {
   const itemIsFavorite = favoriteContex.itemIsFavorite(props.item.id);
 
   const favouriteUiBtnText = location.pathname === '/favorites' ? "Remove from " : "It is  "
-
+  
   // let [deleting, setDeletingStatus] = useState(false)
   // setDeletingStatus(true)
+
+  let [textSuccessCopyStatus, setTextSuccessCopyStatus] = useState(false)
+
+  function copyLink() {
+    navigator.clipboard.writeText(urlForLink)
+    setTextSuccessCopyStatus(true)
+
+    setTimeout(() => {
+      setTextSuccessCopyStatus(false)      
+    }, 1500);
+  }
 
   function deleteMeetup() {
     props.deleteMeetup(props.item.id);
@@ -49,8 +66,10 @@ function MeetupItem(props) {
     }).then(() => nav("/edit"));
   }
 
+
+
   return (
-    <div className={StyleItem.item}>
+    <div id={searchIdMeetup === props.item.id? 'searchedMeetup' : null} className={StyleItem.item}>
       <Card>
         <div className={StyleItem.image}>
           <img src={props.item.img} alt={props.item.title} />
@@ -59,13 +78,18 @@ function MeetupItem(props) {
           <h3 className={StyleItem.title}> {props.item.title}</h3>
           <div className={StyleItem.address}>{props.item.address}</div>
           <a
-            className={StyleItem["map-link"]}
+            className={StyleItem.link}
             href={props.item.mapLink}
             target="_blank"
             rel="noopener noreferrer"
           >
             Map
           </a>
+          <div className={StyleItem.flex}>
+            <span className={StyleItem.link} onClick={copyLink}>Copy link for this meetup </span>
+            <span className={StyleItem['link-with-massage']}>{textSuccessCopyStatus? ' Successfully copied' : null}</span>
+          </div>
+
           <p>{props.item.desc}</p>
           <p>{props.item.date ? `Time: ${props.item.date}`: null}</p>
           <p>{props.item.time ? `Time: ${props.item.time}`: null}</p>
@@ -81,6 +105,11 @@ function MeetupItem(props) {
           {location.pathname === '/favorites' ? null : (<button className={StyleItem.button} onClick={deleteMeetup}>
             Delete
           </button>)}
+          {/* {location.pathname === '/favorites' ? null : (<button className={StyleItem.button}>
+            Copy
+          </button>)} */}
+
+          
           
         </div>
       </Card>

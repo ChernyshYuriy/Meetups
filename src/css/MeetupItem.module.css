@@ -26,10 +26,24 @@ address{
   color: red;
 } */
 
-.map-link{
+.link{
   display: block;
   margin: 10px 0px;
   font-size: 20px;
+  color: rgb(52, 29, 255);
+  text-decoration: underline rgb(52, 29, 255);
+  cursor: pointer;
+}
+
+.link-with-massage{
+  margin-left: 10px;
+}
+
+.flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .content {
