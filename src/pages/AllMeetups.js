@@ -32,9 +32,10 @@ function AllMeetupsPage() {
 
   // const [dataMeetups, setDataMeetups] = useState([]);
 
-  useEffect(() => { AllMeetups.getMeetup(); }, []);
-    
-
+  useEffect(() => {
+    AllMeetups.getMeetup();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // const getMeetup = AllMeetups.getMeetup;
 
