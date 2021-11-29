@@ -10,7 +10,7 @@ function MainNav(props) {
     <header className={headerStyles.header}>
       <div className={headerStyles.logo}>
         {/* <img src="../../img/logo192.png" alt="" /> */}
-        ReactDOM
+        Walkers Meetings
       </div>
       <nav>
         <ul>
@@ -19,7 +19,7 @@ function MainNav(props) {
           </li>
           <li>
             <Link to="/favorites">
-              Favorites{" "}
+              Favourites{" "}
               {favoriteContex.totalFavorites === 0
                 ? ""
                 : favoriteContex.totalFavorites}

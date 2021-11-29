@@ -18,8 +18,8 @@ export function FavoritesContextProvider(props) {
     itemIsFavorite: itemIsFavoriteHandler,
   };
 
-  function addFavoriteHandler(favorite) {
-    setUserFavorites((prevFavorites) => prevFavorites.concat(favorite));
+  function addFavoriteHandler(favourite) {
+    setUserFavorites((prevFavorites) => prevFavorites.concat(favourite));
   }
   function removeFavoriteHandler(meetupId) {
     setUserFavorites((prevFavorites) =>

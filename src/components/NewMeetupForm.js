@@ -1,23 +1,31 @@
-import { useRef, useState } from "react";
+import { useRef, useEffect } from "react";
 
 import StylesElem from "../css/NewMeetupForm.module.css";
 import Card from "./ui/Card";
 
 function Form(props) {
-  const [showMeepPlaceMap, setShowMeepPlaceMap] = useState(false);
-
-  function showInputMap() {
-    setShowMeepPlaceMap(!showMeepPlaceMap);
-  }
-
   const TitleRef = useRef();
   const ImgRef = useRef();
   const AddressRef = useRef();
   const DescRef = useRef();
   const MapLinkRef = useRef();
-  const MapMarkerLat = useRef();
-  const MapMarkerLng = useRef();
-  const MeetPlaceName = useRef();
+  const DateRef = useRef();
+  const TimeRef = useRef();
+
+  useEffect(() => {
+    if (!!props.editData) {
+      TitleRef.current.value = props.editData.title;
+      ImgRef.current.value = props.editData.img;
+      AddressRef.current.value = props.editData.address;
+      DescRef.current.value = props.editData.desc;
+      MapLinkRef.current.value = props.editData.mapLink;
+      DateRef.current.value = props.editData.date
+      TimeRef.current.value = props.editData.time
+    }
+  });
+  // setTimeout(() => {
+
+  // });
 
   function submitHandler(e) {
     e.preventDefault();
@@ -26,51 +34,38 @@ function Form(props) {
     const enteredAddress = AddressRef.current.value;
     const enteredDesc = DescRef.current.value;
     const enteredMapLink = MapLinkRef.current.value;
-    let enteredMeetPlaceName = null
-    let enteredMapDataLat = null
-    let enteredMapDataLng = null
-    if (showMeepPlaceMap === true) {
-      enteredMeetPlaceName = MeetPlaceName.current.value;
-      enteredMapDataLat = MapMarkerLat.current.value;
-      enteredMapDataLng = MapMarkerLng.current.value;
-    }
+    const enteredDate = DateRef.current.value
+    const enteredTime = TimeRef.current.value
 
-
-    let meetupData = {
+    //console.log(enteredDate, enteredTime);
+    console.log(enteredTime);
+    const meetupData = {
       title: enteredTitle,
       img: enteredImg,
       address: enteredAddress,
       desc: enteredDesc,
       mapLink: enteredMapLink,
+      date: enteredDate,
+      time: enteredTime
     };
-    if (showMeepPlaceMap === true) {
-      meetupData = {
-        ...meetupData,
-        map: {
-          meetPlace: enteredMeetPlaceName,
-          mapData: {
-            lat: enteredMapDataLat,
-            lng: enteredMapDataLng,
-          },
-        },
-      };
-    }
-
     // console.log(meetupData);
-    console.log(meetupData);
-    props.onAddMeetup(meetupData);
+    props.onChangeMeetup(meetupData);
   }
 
   return (
     <Card>
-      <form className={StylesElem.form} onSubmit={submitHandler}>
+      <form
+        id="new-meetup-form"
+        className={StylesElem.form}
+        onSubmit={submitHandler}
+      >
         <div className={StylesElem.control}>
           <label htmlFor="title">Title</label>
           <input
             required
             type="text"
             id="title"
-            placeholder="text"
+            placeholder="Title"
             ref={TitleRef}
           />
         </div>
@@ -80,7 +75,7 @@ function Form(props) {
             required
             type="url"
             id="image"
-            placeholder="image"
+            placeholder="Image"
             ref={ImgRef}
           />
         </div>
@@ -90,81 +85,47 @@ function Form(props) {
             required
             type="text"
             id="address"
-            placeholder="address"
+            placeholder="Address"
             ref={AddressRef}
           />
         </div>
         <div className={StylesElem.control}>
-          <label htmlFor="address">Link Map</label>
-          <input
-            required
-            type="text"
-            id="address"
-            placeholder="Map link"
-            ref={MapLinkRef}
-          />
+          <label htmlFor="map">Link Map</label>
+          <input type="text" id="map" placeholder="Map" ref={MapLinkRef} />
         </div>
         <div className={StylesElem.control}>
           <label htmlFor="description">Description</label>
           <textarea
-            required
+            className={StylesElem.textarea}
             type="text"
             id="description"
             row="5"
-            placeholder="description"
+            placeholder="Description"
             ref={DescRef}
           />
         </div>
         <div className={StylesElem.control}>
-          <label htmlFor="map">
-            Add meet place ?{" "}
-            <input
-              onChange={showInputMap}
-              type="checkbox"
-              id="map"
-              name="map"
-            ></input>
-          </label>
-          {showMeepPlaceMap ? (
-            <div>
-              <div className={StylesElem.control}>
-                <label htmlFor="MeetPlaceName">Meet Place Name</label>
-
-                <input
-                  required
-                  type="text"
-                  id="MeetPlaceName"
-                  placeholder="Place name"
-                  ref={MeetPlaceName}
-                />
-              </div>
-              <div className={StylesElem.control}>
-                <label htmlFor="MapMarkerLat">Map Lat</label>
-
-                <input
-                  required
-                  type="text"
-                  id="MapMarkerLat"
-                  placeholder="Marker Lat"
-                  ref={MapMarkerLat}
-                />
-              </div>
-
-              <label htmlFor="MapMarkerLng">Map Lng</label>
-              <div className={StylesElem.control}>
-                <input
-                  required
-                  type="text"
-                  id="MapMarkerLng"
-                  placeholder="Marker Lng"
-                  ref={MapMarkerLng}
-                />
-              </div>
-            </div>
-          ) : null}
+          <label htmlFor="address">Select date</label>
+          <input
+            className={StylesElem['short-input']}
+            type="date"
+            id="date"
+            placeholder="Date"
+            ref={DateRef}
+          />
+        </div>
+        <div className={StylesElem.control}>
+          <label htmlFor="address">Select time</label>
+          <input
+            className={StylesElem['short-input']}
+            type="time"
+            id="time"
+            placeholder="Time"
+            ref={TimeRef}
+          />
         </div>
         <div className={StylesElem.actions}>
-          <button>Add Meetup</button>
+          <button>{props.btnText}</button>
         </div>
       </form>
     </Card>

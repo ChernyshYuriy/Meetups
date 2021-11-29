@@ -1,5 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import MeetupList from "../components/Meetup/MeetupList";
+import MeetupsContext from "../store/meetUpsState";
+// import MeetupItem from "../components/Meetup/MeetupItem";
+// import StyleItem from "../css/MeetupList.module.css";
+
 // const DUMMY_DATA = [
 //   {
 //     id: "m1",
@@ -22,47 +26,90 @@ import MeetupList from "../components/Meetup/MeetupList";
 // ];
 
 function AllMeetupsPage() {
-  const [loadingData, setLoading] = useState(true);
+  const AllMeetups = useContext(MeetupsContext);
 
-  const [dataMeetups, setDataMeetups] = useState([]);
+  // const [loadingData, setLoading] = useState(true);
+
+  // const [dataMeetups, setDataMeetups] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    fetch("https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let newData = []
-        for (const key in data) {
-          const meetup ={
-            id: key,
-            ...data[key]
-          }
-          newData.push(meetup)
-
-        }
-        console.log(newData, 'newData');
-        setLoading(false);
-        console.log(data);
-        setDataMeetups(newData);
-      });
+    AllMeetups.getMeetup();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!!loadingData) {
+  // const getMeetup = AllMeetups.getMeetup;
+
+  //console.log(AllMeetups.meetups);
+
+  // setLoading(true);
+  // fetch("https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json")
+  //   .then((response) => {
+  //     return response.json();
+  //   })
+  //   .then((data) => {
+  //     let newData = [];
+  //     for (const key in data) {
+  //       const meetup = {
+  //         id: key,
+  //         ...data[key],
+  //       };
+  //       newData.push(meetup);
+  //     }
+  //     console.log(newData, "newData");
+  //     setLoading(false);
+  //     console.log(newData);
+  //     setDataMeetups(newData);
+  //   });
+
+  // console.log(AllMeetups.getMeetup);
+
+  // console.log(AllMeetups);
+
+  // function deleteMeetup(id) {
+  //   console.log(id);
+  //   const newData = dataMeetups.filter((meetup) => meetup.id !== id);
+  //   console.log(newData);
+  //   fetch(
+  //     `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
+  //     {
+  //       method: "PUT",
+  //       body: JSON.stringify(newData),
+  //       headers: {
+  //         "Content-Type": "application.json",
+  //       },
+  //     }
+  //   ).then((response) => {
+  //     console.log(response);
+  //     setDataMeetups(newData);
+  //   });
+  // }
+
+  if (!AllMeetups.loaded) {
     return <h1>Loading ...</h1>;
   }
 
   return (
     <div>
-      <h1>All Meetups</h1>
+      <h2>All Meetups</h2>
       {/* <ul>
       {DUMMY_DATA.map((item) => {
         return (
         <li key={item.id}>{item.title}</li>)
       })}
       </ul> */}
-      <MeetupList items={dataMeetups} />
+      {/* <ul className={StyleItem.list}>
+        {AllMeetups.meetups.map((item) => {
+          return (
+            <MeetupItem
+              deleteMeetup={AllMeetups.removeMeetup}
+              key={item.id}
+              item={item}
+            />
+          );
+        })}
+      </ul> */}
+      <MeetupList items={AllMeetups.meetups} />
+      {/* <MeetupList items={dataMeetups} /> */}
     </div>
   );
 }

@@ -20,6 +20,15 @@
   border: 1px solid #ccc;
   padding: 0.25rem;
   width: 100%;
+  resize: none;
+}
+.control input.short-input{
+  width: 160px;
+}
+
+.textarea{
+  resize: none;
+  height: 100px;
 }
 
 .actions {

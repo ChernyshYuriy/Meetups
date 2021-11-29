@@ -47,3 +47,68 @@
   padding: 0 1rem;
   margin-left: 0.5rem;
 }
+
+@media screen and (max-width: 970px) {
+  .logo{
+    font-size: 28px;
+  }
+  .header a{
+    font-size: 22px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .header{
+    flex-direction: column;
+    padding: 10px 10%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header{
+    flex-direction: column;
+    padding: 10px 0%;
+    width: 100%;
+  }
+  .header{
+    height: 4.3rem;
+  }
+  .header li {
+    margin: 0px 0.7rem;
+  }
+  .header a{
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .logo{
+    font-size: 24px;
+  }
+  .header{
+    height: 3.5rem;
+  }
+  .header a{
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 420px) {
+  .logo{
+    font-size: 20px;
+  }
+  .header{
+    height: 3.2rem;
+  }
+  .header li {
+    margin: 0px 0.5rem;
+  }
+  .header a{
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 350px) {
+
+  .header li {
+    margin: 0px 0.4rem;
+  }
+
+}

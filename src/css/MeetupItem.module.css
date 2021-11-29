@@ -2,6 +2,10 @@
   margin: 1rem 0;
 }
 
+.information{
+  padding: 0 1.5rem;
+}
+
 .image {
   width: 100%;
   height: 20rem;
@@ -13,6 +17,33 @@
 .image img {
   width: 100%;
   object-fit: cover;
+}
+
+/* title{
+  color: red;
+}
+address{
+  color: red;
+} */
+
+.link{
+  display: block;
+  margin: 10px 0px;
+  font-size: 20px;
+  color: rgb(52, 29, 255);
+  text-decoration: underline rgb(52, 29, 255);
+  cursor: pointer;
+}
+
+.link-with-massage{
+  margin-left: 10px;
+}
+
+.flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .content {
@@ -27,10 +58,12 @@
 
 .actions {
   padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
   text-align: center;
 }
 
-.actions button {
+.actions .button {
   font: inherit;
   cursor: pointer;
   color: #77002e;
@@ -43,4 +76,28 @@
 .actions button:hover,
 .actions button:active {
   background-color: #ffe2ed;
+}
+
+@media screen and (max-width: 600px) {
+  .image{
+      width: 100%;
+      height: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .actions{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    padding-bottom: 25px;
+  }
+  .actions .button {
+    margin: 8px 0px;
+    font-size: 18px;
+  }
+  .actions .button:last-child {
+    margin-bottom: 0;
+  }
+
 }
