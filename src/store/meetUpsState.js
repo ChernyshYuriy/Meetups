@@ -35,7 +35,7 @@ export function MeetupsContextProvider(props) {
 
   function meetupGetter() {
     changeLoadingStatus(false, "Getting meetups from server");
-    fetch("https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json")
+    fetch("https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json")
       .then((response) => {
         return response.json();
       })
@@ -74,7 +74,7 @@ export function MeetupsContextProvider(props) {
     changeLoadingStatus(false, "Adding meetup");
 
     fetch(
-      "https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json",
+      "https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json",
       {
         method: "POST",
         body: JSON.stringify(data),
@@ -107,7 +107,7 @@ export function MeetupsContextProvider(props) {
     const newData = allMeetups.filter((meetup) => meetup.id !== meetupId);
 
     fetch(
-      `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
+      `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
       {
         method: "PUT",
         body: JSON.stringify(newData),
@@ -144,7 +144,7 @@ export function MeetupsContextProvider(props) {
     });
 
     fetch(
-      `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
+      `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
       {
         method: "PUT",
         body: JSON.stringify(newData),
