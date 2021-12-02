@@ -2,7 +2,10 @@ import { createContext, useState } from "react";
 
 const MeetupsContext = createContext({
   meetups: [],
-  loaded: false,
+  loaded: {
+    status: true,
+    preloaderText: "",
+  },
   editingMeetup: 0,
   getMeetup: (meetup) => {},
   addMeetup: (meetup) => {},
@@ -13,7 +16,10 @@ const MeetupsContext = createContext({
 
 export function MeetupsContextProvider(props) {
   const [allMeetups, setAllMeetups] = useState([]);
-  const [allLoaded, setLoading] = useState(false);
+  const [allLoaded, setLoading] = useState({
+    status: true,
+    preloaderText: "",
+  });
   const [editingMeetup, setEditingMeetup] = useState(null);
 
   const context = {
@@ -28,10 +34,9 @@ export function MeetupsContextProvider(props) {
   };
 
   function meetupGetter() {
-    // console.log(1);
-    fetch("https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json")
+    changeLoadingStatus(false, "Getting meetups from server");
+    fetch("https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json")
       .then((response) => {
-        //console.log(1111);
         return response.json();
       })
       .then((data) => {
@@ -44,22 +49,32 @@ export function MeetupsContextProvider(props) {
           newData.push(meetup);
         }
         // console.log(newData, "newData");
-        setLoading(true);
+        setLoading({
+          status: true,
+          preloaderText: "Getting data from server",
+        });
         // console.log(newData);
         setAllMeetups(newData);
-
-        (() => {const searchMeetup = document.querySelector("#searchedMeetup");
-        if (searchMeetup && searchMeetup.offsetTop) {
-          setTimeout(() => {
-            window.scroll(0, searchMeetup.offsetTop - 10)
-          }, 500);
-        }})()
-      });
+        (() => {
+          const searchMeetup = document.querySelector("#searchedMeetup");
+          if (searchMeetup && searchMeetup.offsetTop) {
+            setTimeout(() => {
+              window.scroll(0, searchMeetup.offsetTop - 10);
+            }, 500);
+          }
+        })();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally((_) => changeLoadingStatus());
   }
 
   function addMeetupHandler(data) {
+    changeLoadingStatus(false, "Adding meetup");
+
     fetch(
-      "https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json",
+      "https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json",
       {
         method: "POST",
         body: JSON.stringify(data),
@@ -68,19 +83,31 @@ export function MeetupsContextProvider(props) {
         },
       }
     )
-      .then((resolve) => {
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        const NewMeetup = { ...data, id: response.name };
+        const newData = [];
+        allMeetups.forEach((meetup) => {
+          newData.push(meetup);
+        });
+        newData.push(NewMeetup);
+
+        setAllMeetups(newData);
         //nav('/')
         document.getElementById("new-meetup-form").reset();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally((_) => changeLoadingStatus());
     // setAllMeetups((prevMeetups) => prevFavorites.concat(favourite));
   }
   function removeMeetupHandler(meetupId) {
+    changeLoadingStatus(false, "Removing meetup");
     const newData = allMeetups.filter((meetup) => meetup.id !== meetupId);
-    // console.log(allMeetups);
 
     fetch(
-      `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
+      `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
       {
         method: "PUT",
         body: JSON.stringify(newData),
@@ -91,8 +118,9 @@ export function MeetupsContextProvider(props) {
     )
       .then((response) => {
         setAllMeetups(newData);
-
       })
+      .catch((err) => console.error(err))
+      .finally((_) => changeLoadingStatus());
   }
 
   function editMeetupHandler(meetupId) {
@@ -102,6 +130,7 @@ export function MeetupsContextProvider(props) {
   function editMeetupHandlerRequest(editedMeetup) {
     // const newData = allMeetups.filter((meetup) => meetup.id !== meetupId);
     // console.log(allMeetups);
+    changeLoadingStatus(false, "Saving changes in meetup");
 
     const newData = allMeetups.map((meetup) => {
       if (meetup.id === editingMeetup.id) {
@@ -115,7 +144,7 @@ export function MeetupsContextProvider(props) {
     });
 
     fetch(
-      `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
+      `https://first-react-7b400-default-rtdb.firebaseio.com/meetups.json`,
       {
         method: "PUT",
         body: JSON.stringify(newData),
@@ -123,9 +152,22 @@ export function MeetupsContextProvider(props) {
           "Content-Type": "application.json",
         },
       }
-    ).then((response) => {
-      setAllMeetups(newData);
-      setEditingMeetup(editedMeetup)
+    )
+      .then((response) => {
+        setAllMeetups(newData);
+        setEditingMeetup(editedMeetup);
+      })
+      .catch((err) => console.error(err))
+      .finally((_) => changeLoadingStatus());
+  }
+
+  function changeLoadingStatus(
+    status = true,
+    preloaderText = "Connecting Server"
+  ) {
+    setLoading({
+      status,
+      preloaderText,
     });
   }
 

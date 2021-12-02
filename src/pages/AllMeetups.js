@@ -33,7 +33,9 @@ function AllMeetupsPage() {
   // const [dataMeetups, setDataMeetups] = useState([]);
 
   useEffect(() => {
-    AllMeetups.getMeetup();
+    if (!AllMeetups.meetups.length) {
+      AllMeetups.getMeetup();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

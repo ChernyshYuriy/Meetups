@@ -44,7 +44,7 @@ function EditMeetup() {
   return (
     <NewMeetupForm
       onChangeMeetup={editMeetupFunc}
-      btnText="Edit Meetup"
+      btnText="Save changes"
       editData={AllMeetups.editingMeetup}
     />
   );
