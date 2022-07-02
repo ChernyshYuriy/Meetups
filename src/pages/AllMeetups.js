@@ -41,7 +41,6 @@ function AllMeetupsPage() {
 
   // const getMeetup = AllMeetups.getMeetup;
 
-  //console.log(AllMeetups.meetups);
 
   // setLoading(true);
   // fetch("https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json")
@@ -57,20 +56,14 @@ function AllMeetupsPage() {
   //       };
   //       newData.push(meetup);
   //     }
-  //     console.log(newData, "newData");
   //     setLoading(false);
-  //     console.log(newData);
   //     setDataMeetups(newData);
   //   });
 
-  // console.log(AllMeetups.getMeetup);
 
-  // console.log(AllMeetups);
 
   // function deleteMeetup(id) {
-  //   console.log(id);
   //   const newData = dataMeetups.filter((meetup) => meetup.id !== id);
-  //   console.log(newData);
   //   fetch(
   //     `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
   //     {
@@ -81,7 +74,6 @@ function AllMeetupsPage() {
   //       },
   //     }
   //   ).then((response) => {
-  //     console.log(response);
   //     setDataMeetups(newData);
   //   });
   // }

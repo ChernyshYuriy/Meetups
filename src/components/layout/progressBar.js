@@ -10,9 +10,7 @@ function ProgressBar() {
     const fullH = document.body.clientHeight;
     const scrolled = window.scrollY;
     const presentScrolled = (scrolled / (fullH - windowH)) * 100;
-    // console.log(`${presentScrolled.toFixed(2)}%`);
-    // console.log(progressBarRef.current);
-    // console.log(progressBarRef.colorPicker);
+
     progressBarRef.current.style.width = `${presentScrolled.toFixed(2)}%`;
     // progressBarRef.style.width = `${presentScrolled.toFixed(2)}%`;
     // return `${presentScrolled.toFixed(2)}%`

@@ -40,7 +40,6 @@ function Form(props) {
     const enteredDate = DateRef.current.value;
     const enteredTime = TimeRef.current.value;
 
-    //console.log(enteredDate, enteredTime);
     const meetupData = {
       title: enteredTitle,
       img: enteredImg,
@@ -50,7 +49,6 @@ function Form(props) {
       date: enteredDate,
       time: enteredTime,
     };
-    // console.log(meetupData);
     props.onChangeMeetup(meetupData);
   }
 

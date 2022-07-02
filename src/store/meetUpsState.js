@@ -48,12 +48,10 @@ export function MeetupsContextProvider(props) {
           };
           newData.push(meetup);
         }
-        // console.log(newData, "newData");
         setLoading({
           status: true,
           preloaderText: "Getting data from server",
         });
-        // console.log(newData);
         setAllMeetups(newData);
         (() => {
           const searchMeetup = document.querySelector("#searchedMeetup");
@@ -129,7 +127,6 @@ export function MeetupsContextProvider(props) {
 
   function editMeetupHandlerRequest(editedMeetup) {
     // const newData = allMeetups.filter((meetup) => meetup.id !== meetupId);
-    // console.log(allMeetups);
     changeLoadingStatus(false, "Saving changes in meetup");
 
     const newData = allMeetups.map((meetup) => {

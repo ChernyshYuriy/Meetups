@@ -7,7 +7,6 @@ import MeetupsContext from "../store/meetUpsState";
 
 function EditMeetup() {
   const AllMeetups = useContext(MeetupsContext);
-  console.log(AllMeetups.editingMeetup, "AllMeetups.editingMeetup");
   const nav = useNavigate();
 
   function editMeetupFunc(data) {
@@ -22,8 +21,6 @@ function EditMeetup() {
 
   // function changeMeetupData(data) {
   //   AllMeetups.editRequest(data)
-  //   // console.log(AllMeetups.editingMeetup.id, 'AllMeetups.editingMeetup');
-  //   // console.log({...data,id:AllMeetups.editingMeetup.id} == AllMeetups.editingMeetup, {...data,id:AllMeetups.editingMeetup.id} === AllMeetups.editingMeetup, 'data == AllMeetups.editingMeetup, data === AllMeetups.editingMeetup');
   //   // fetch(
   //   //   "https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups/" + JSON.stringify(AllMeetups.editingMeetup.id) +".json",
   //   //   {

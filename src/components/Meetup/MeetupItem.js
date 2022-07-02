@@ -58,7 +58,6 @@ function MeetupItem(props) {
   function OpenEdit() {
     new Promise((resolve, reject) => {
       AllMeetups.editMeetup(props.item.id);
-      //console.log(AllMeetups);
       resolve();
     }).then(() => nav("/edit"));
   }
