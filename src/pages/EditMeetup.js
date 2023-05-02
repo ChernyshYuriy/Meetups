@@ -19,25 +19,6 @@ function EditMeetup() {
     );
   }
 
-  // function changeMeetupData(data) {
-  //   AllMeetups.editRequest(data)
-  //   // fetch(
-  //   //   "https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups/" + JSON.stringify(AllMeetups.editingMeetup.id) +".json",
-  //   //   {
-  //   //     method: "PUT",
-  //   //     body: JSON.stringify(data),
-  //   //     headers: {
-  //   //       "Content-Type": "application.json",
-  //   //     },
-  //   //   }
-  //   // )
-  //   //   .then((resolve) => {
-  //   //     //nav('/')
-  //   //     alert("Success")
-  //   //   })
-  //   //   .catch((err) => console.log(err));
-  // }
-
   return (
     <NewMeetupForm
       onChangeMeetup={editMeetupFunc}

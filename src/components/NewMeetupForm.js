@@ -26,9 +26,6 @@ function Form(props) {
       TimeRef.current.value = props.editData.time;
     }
   });
-  // setTimeout(() => {
-
-  // });
 
   function submitHandler(e) {
     e.preventDefault();
@@ -105,7 +102,11 @@ function Form(props) {
             </a>
           </div>
           <div className={`${StylesElem.helping} row`}>
-            <img className={StylesElem['exclamation-mark']} src="http://images.all-free-download.com/images/graphiclarge/warning_sign_clip_art_26217.jpg" alt=""/>
+            <img
+              className={StylesElem["exclamation-mark"]}
+              src="http://images.all-free-download.com/images/graphiclarge/warning_sign_clip_art_26217.jpg"
+              alt=""
+            />
             Build your route using Google Maps.
           </div>
         </div>

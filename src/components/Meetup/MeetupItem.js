@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import Card from "../ui/Card";
@@ -7,6 +6,7 @@ import StyleItem from "../../css/MeetupItem.module.css";
 import FavoritesContext from "../../store/favorites";
 import MeetupsContext from "../../store/meetUpsState";
 import { useLocation } from "react-router-dom";
+import Modal from "../modal/index";
 
 function MeetupItem(props) {
   const location = useLocation();
@@ -29,18 +29,12 @@ function MeetupItem(props) {
   const favouriteUiBtnText =
     location.pathname === "/favorites" ? "Remove from " : "It is  ";
 
-  // let [deleting, setDeletingStatus] = useState(false)
-  // setDeletingStatus(true)
+  let [isOpenModal, setIsOpenModal] = useState(false);
 
-  let [textSuccessCopyStatus, setTextSuccessCopyStatus] = useState(false);
-
-  function copyLink() {
+  function copyLink(e) {
+    e.preventDefault();
     navigator.clipboard.writeText(urlForLink);
-    setTextSuccessCopyStatus(true);
-
-    setTimeout(() => {
-      setTextSuccessCopyStatus(false);
-    }, 1500);
+    setIsOpenModal(true);
   }
 
   function deleteMeetup() {
@@ -61,7 +55,9 @@ function MeetupItem(props) {
       resolve();
     }).then(() => nav("/edit"));
   }
-
+  function closeModal(value) {
+    setIsOpenModal(value);
+  }
   return (
     <div
       id={searchIdMeetup === props.item.id ? "searchedMeetup" : null}
@@ -69,7 +65,14 @@ function MeetupItem(props) {
     >
       <Card>
         <div className={StyleItem.image}>
-          <img src={props.item.img? props.item.img : 'https://cdn.dribbble.com/users/732679/screenshots/4108024/walking.gif'} alt="Cant load images" />
+          <img
+            src={
+              props.item.img
+                ? props.item.img
+                : "https://cdn.dribbble.com/users/732679/screenshots/4108024/walking.gif"
+            }
+            alt="Cant load images"
+          />
         </div>
         <div className={StyleItem.information}>
           <h3 className={StyleItem.title}> {props.item.title}</h3>
@@ -87,9 +90,6 @@ function MeetupItem(props) {
           <div className={StyleItem.flex}>
             <span className={StyleItem.link} onClick={copyLink}>
               Copy link for this meetup{" "}
-            </span>
-            <span className={StyleItem["link-with-massage"]}>
-              {textSuccessCopyStatus ? " Successfully copied" : null}
             </span>
           </div>
 
@@ -111,11 +111,27 @@ function MeetupItem(props) {
               Delete
             </button>
           )}
-          {/* {location.pathname === '/favorites' ? null : (<button className={StyleItem.button}>
-            Copy
-          </button>)} */}
         </div>
       </Card>
+      <Modal isOpen={isOpenModal} close={closeModal}>
+        {{
+          title: "Посилання успішно скопійовано",
+          body: (
+            <>
+              <div>
+                {
+                  <input
+                    className={StyleItem["input-link"]}
+                    type="text"
+                    value={urlForLink}
+                    onClick={copyLink}
+                  />
+                }
+              </div>
+            </>
+          ),
+        }}
+      </Modal>
     </div>
   );
 }

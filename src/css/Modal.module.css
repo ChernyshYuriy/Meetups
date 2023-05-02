@@ -1,0 +1,42 @@
+.background {
+  z-index: 5;
+  background-color: #0000004a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.modal {
+  background: #fff;
+  width: clamp(300px, 50vw, 700px);
+  height: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  padding: 25px;
+}
+.modal__title {
+  position: relative;
+  text-align: center;
+  padding: 0px 40px;
+  font-size: 18px;
+}
+.modal__body {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 18px;
+}
+.modal__btn {
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  top: -10px;
+  display: flex;
+}
+.modal__btn img {
+  width: 14px;
+  height: 14px;
+}

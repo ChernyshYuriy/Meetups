@@ -3,7 +3,6 @@ import { useRef } from "react";
 function ProgressBar() {
   const progressBarRef = useRef();
 
-  // const progressBar = document.querySelector(".progress-bar");
   window.addEventListener("scroll", fillScroll);
   function fillScroll() {
     const windowH = window.innerHeight;
@@ -12,8 +11,6 @@ function ProgressBar() {
     const presentScrolled = (scrolled / (fullH - windowH)) * 100;
 
     progressBarRef.current.style.width = `${presentScrolled.toFixed(2)}%`;
-    // progressBarRef.style.width = `${presentScrolled.toFixed(2)}%`;
-    // return `${presentScrolled.toFixed(2)}%`
   }
 
   return (
