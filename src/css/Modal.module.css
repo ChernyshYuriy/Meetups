@@ -40,3 +40,10 @@
   width: 14px;
   height: 14px;
 }
+
+@media screen and (max-width: 360px) {
+  .modal {
+    width: 280px;
+    padding: 20px 10px;
+  }
+}

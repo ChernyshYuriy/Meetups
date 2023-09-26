@@ -2,15 +2,31 @@ import { Link } from "react-router-dom";
 import headerStyles from "../../css/MainNav.module.css";
 import { useContext } from "react";
 import FavoritesContext from "../../store/favorites";
+import MeetupsContext from "../../store/meetUpsState";
 
-function MainNav(props) {
+function MainNav() {
   const favoriteContex = useContext(FavoritesContext);
+  const AllMeetups = useContext(MeetupsContext);
 
+  const countFavoritesElement = favoriteContex.totalFavorites ? (
+    <span className={headerStyles["favorites-count"]}>
+      {favoriteContex.totalFavorites === 0 ? "" : favoriteContex.totalFavorites}
+    </span>
+  ) : (
+    ""
+  );
+  const classModificationFavorites =
+    favoriteContex.totalFavorites === 0
+      ? ""
+      : headerStyles["favorites--with-count"];
   return (
     <header className={headerStyles.header}>
-      <div className={headerStyles.logo}>
-        {/* <img src="../../img/logo192.png" alt="" /> */}
-        Walkers Meetings
+      <div
+        className={headerStyles.logo}
+        title="get Admin"
+        onClick={() => AllMeetups.setAdminModalOpen(true)}
+      >
+        {AllMeetups.isAdmin ? "Walkers Admin" : "Walkers Meetings"}
       </div>
       <nav>
         <ul>
@@ -18,11 +34,11 @@ function MainNav(props) {
             <Link to="/">All Meets</Link>
           </li>
           <li>
-            <Link to="/favorites">
-              Favourites{" "}
-              {favoriteContex.totalFavorites === 0
-                ? ""
-                : favoriteContex.totalFavorites}
+            <Link
+              className={`${headerStyles.favorites} ${classModificationFavorites}`}
+              to="/favorites"
+            >
+              Favourites{countFavoritesElement}
             </Link>
           </li>
           <li>

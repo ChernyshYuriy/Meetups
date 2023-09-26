@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-
+import { main } from "../constants/api";
 const MeetupsContext = createContext({
   meetups: [],
   loaded: {
@@ -7,11 +7,15 @@ const MeetupsContext = createContext({
     preloaderText: "",
   },
   editingMeetup: 0,
+  isAdmin: false,
   getMeetup: (meetup) => {},
   addMeetup: (meetup) => {},
   removeMeetup: (meetupId) => {},
   editMeetup: (meetupId) => {},
   editRequest: (meetupId) => {},
+  setAdminModalOpen: () => {},
+  getSavedAdmin: () => {},
+  logout: () => {},
 });
 
 export function MeetupsContextProvider(props) {
@@ -21,23 +25,29 @@ export function MeetupsContextProvider(props) {
     preloaderText: "",
   });
   const [editingMeetup, setEditingMeetup] = useState(null);
+  const [isAdminStatus, setAdminStatus] = useState(false);
+  const [isAdminModalOpen, setAdminModalOpen] = useState(false);
 
   const context = {
     meetups: allMeetups,
     loaded: allLoaded,
+    isAdmin: isAdminStatus,
+    isAdminModalOpen: isAdminModalOpen,
     editingMeetup: editingMeetup,
     getMeetup: meetupGetter,
     addMeetup: addMeetupHandler,
     removeMeetup: removeMeetupHandler,
     editMeetup: editMeetupHandler,
     editRequest: editMeetupHandlerRequest,
+    changeAdminStatus: changeAdminStatus,
+    setAdminModalOpen: changeAdminModalStatus,
+    getSavedAdmin,
+    logout,
   };
 
   function meetupGetter() {
     changeLoadingStatus(false, "Getting meetups from server");
-    fetch(
-      "https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json"
-    )
+    fetch(main)
       .then((response) => {
         return response.json();
       })
@@ -73,16 +83,13 @@ export function MeetupsContextProvider(props) {
   function addMeetupHandler(data) {
     changeLoadingStatus(false, "Adding meetup");
 
-    fetch(
-      "https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application.json",
-        },
-      }
-    )
+    fetch(main, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
       .then((response) => {
         return response.json();
       })
@@ -105,16 +112,13 @@ export function MeetupsContextProvider(props) {
     changeLoadingStatus(false, "Removing meetup");
     const newData = allMeetups.filter((meetup) => meetup.id !== meetupId);
 
-    fetch(
-      `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
-      {
-        method: "PUT",
-        body: JSON.stringify(newData),
-        headers: {
-          "Content-Type": "application.json",
-        },
-      }
-    )
+    fetch(main, {
+      method: "PUT",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
       .then((response) => {
         setAllMeetups(newData);
       })
@@ -140,16 +144,13 @@ export function MeetupsContextProvider(props) {
       }
     });
 
-    fetch(
-      `https://walker-meetings-default-rtdb.europe-west1.firebasedatabase.app/meetups.json`,
-      {
-        method: "PUT",
-        body: JSON.stringify(newData),
-        headers: {
-          "Content-Type": "application.json",
-        },
-      }
-    )
+    fetch(main, {
+      method: "PUT",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
       .then((response) => {
         setAllMeetups(newData);
         setEditingMeetup(editedMeetup);
@@ -166,6 +167,38 @@ export function MeetupsContextProvider(props) {
       status,
       preloaderText,
     });
+  }
+
+  function changeAdminStatus(code) {
+    const date = new Date();
+    const day = Number(date.getDate() < 10)
+      ? `0${date.getDate()}`
+      : date.getDate();
+    const month = Number(date.getMonth() < 10)
+      ? `0${date.getMonth() + 1}`
+      : date.getMonth() + 1;
+    if (`${day}${month}` !== code) return;
+    setAdminStatus(true);
+    localStorage.setItem("adminSetDate", date.getTime());
+
+    setAdminModalOpen(false);
+  }
+
+  function logout() {
+    setAdminStatus(false);
+    localStorage.removeItem("adminSetDate");
+    setAdminModalOpen(false);
+  }
+
+  function changeAdminModalStatus(value) {
+    setAdminModalOpen(value);
+  }
+  function getSavedAdmin() {
+    const date = new Date();
+    const lastLoginAdmin = JSON.parse(localStorage.getItem("adminSetDate"));
+    date.setDate(date.getDate() - 1);
+    if (lastLoginAdmin < date.getTime()) return;
+    setAdminStatus(true);
   }
 
   return (

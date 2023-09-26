@@ -31,6 +31,18 @@ function MeetupItem(props) {
 
   let [isOpenModal, setIsOpenModal] = useState(false);
 
+  const adminButtons = AllMeetups.isAdmin ? (
+    <>
+      <button className={StyleItem.button} onClick={OpenEdit}>
+        Edit
+      </button>
+      <button className={StyleItem.button} onClick={deleteMeetup}>
+        Delete
+      </button>
+    </>
+  ) : (
+    ""
+  );
   function copyLink(e) {
     e.preventDefault();
     navigator.clipboard.writeText(urlForLink);
@@ -101,16 +113,7 @@ function MeetupItem(props) {
           <button className={StyleItem.button} onClick={toggleFavorite}>
             {itemIsFavorite ? favouriteUiBtnText : "Add to "} favourite
           </button>
-          {location.pathname === "/favorites" ? null : (
-            <button className={StyleItem.button} onClick={OpenEdit}>
-              Edit
-            </button>
-          )}
-          {location.pathname === "/favorites" ? null : (
-            <button className={StyleItem.button} onClick={deleteMeetup}>
-              Delete
-            </button>
-          )}
+          {adminButtons}
         </div>
       </Card>
       <Modal isOpen={isOpenModal} close={closeModal}>

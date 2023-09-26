@@ -1,21 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap");
 
-body{
+body {
+  --main-bg-color: #77002e;
+  --blue: rgb(52, 29, 255);
+  --input-box-shadow: 0px 0px 0px 1px #00000062;
+
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-.progress-bar{ 
+.progress-bar {
   background-color: rgb(16, 187, 50);
   height: 6px;
   position: fixed;
   top: 0;
   left: 0;
-  transform: 0.2s  all;
+  transform: 0.2s all;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
-.row{
+.row {
   display: flex;
   flex-direction: row;
 }
@@ -26,6 +30,6 @@ body{
   flex-wrap: wrap;
   justify-content: flex-end;
 }
-.form-btn-group div:first-child{
+.form-btn-group div:first-child {
   margin-right: 20px;
 }

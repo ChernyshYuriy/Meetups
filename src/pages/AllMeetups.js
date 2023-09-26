@@ -11,6 +11,10 @@ function AllMeetupsPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const meetupsList = AllMeetups.isAdmin
+    ? AllMeetups.meetups
+    : AllMeetups.meetups.filter((meetup) => !meetup.isOnlyAdmins);
+
   if (!AllMeetups.loaded) {
     return <h1>Loading ...</h1>;
   }
@@ -18,7 +22,7 @@ function AllMeetupsPage() {
   return (
     <div>
       <h2>All Meetups</h2>
-      <MeetupList items={AllMeetups.meetups} />
+      <MeetupList items={meetupsList} />
     </div>
   );
 }

@@ -19,19 +19,12 @@
   object-fit: cover;
 }
 
-/* title{
-  color: red;
-}
-address{
-  color: red;
-} */
-
 .link {
   display: block;
   margin: 10px 0px;
   font-size: 20px;
-  color: rgb(52, 29, 255);
-  text-decoration: underline rgb(52, 29, 255);
+  color: var(--blue);
+  text-decoration: underline var(--blue);
   cursor: pointer;
 }
 
@@ -68,8 +61,8 @@ address{
 .actions .button {
   font: inherit;
   cursor: pointer;
-  color: #77002e;
-  border: 1px solid #77002e;
+  color: var(--main-bg-color);
+  border: 1px solid var(--main-bg-color);
   background-color: transparent;
   padding: 0.5rem 1.5rem;
   border-radius: 4px;

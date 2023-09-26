@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import StylesElem from "../css/NewMeetupForm.module.css";
 import Card from "./ui/Card";
+import { useContext } from "react";
+
+import MeetupsContext from "../store/meetUpsState";
 
 function Form(props) {
+  const context = useContext(MeetupsContext);
+
   const nav = useNavigate();
 
   const TitleRef = useRef();
@@ -14,6 +19,7 @@ function Form(props) {
   const MapLinkRef = useRef();
   const DateRef = useRef();
   const TimeRef = useRef();
+  const onlyAdminRef = useRef();
 
   useEffect(() => {
     if (!!props.editData) {
@@ -29,6 +35,7 @@ function Form(props) {
 
   function submitHandler(e) {
     e.preventDefault();
+    console.log(onlyAdminRef, `onlyAdminRef`);
     const enteredTitle = TitleRef.current.value;
     const enteredImg = ImgRef.current.value;
     const enteredAddress = AddressRef.current.value;
@@ -36,6 +43,7 @@ function Form(props) {
     const enteredMapLink = MapLinkRef.current.value;
     const enteredDate = DateRef.current.value;
     const enteredTime = TimeRef.current.value;
+    const enteredOnlyAdmins = onlyAdminRef.current.checked;
 
     const meetupData = {
       title: enteredTitle,
@@ -45,9 +53,18 @@ function Form(props) {
       mapLink: enteredMapLink,
       date: enteredDate,
       time: enteredTime,
+      isOnlyAdmins: enteredOnlyAdmins,
     };
     props.onChangeMeetup(meetupData);
   }
+
+  const onlyAdmin = context.isAdmin ? (
+    <div>
+      Is only for admins <input ref={onlyAdminRef} type="checkbox" />
+    </div>
+  ) : (
+    ""
+  );
 
   function cancelForm(e) {
     e.preventDefault();
@@ -141,6 +158,7 @@ function Form(props) {
             ref={TimeRef}
           />
         </div>
+        {onlyAdmin}
         <div className="form-btn-group">
           <div className={StylesElem.actions}>
             <button onClick={cancelForm}>Cancel</button>

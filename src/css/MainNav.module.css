@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #77002e;
+  background-color: var(--main-bg-color);
   padding: 0 10%;
 }
 
@@ -14,6 +14,7 @@
   font-size: 2rem;
   color: white;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .header ul {
@@ -48,67 +49,89 @@
   margin-left: 0.5rem;
 }
 
+.favorites {
+  position: relative;
+}
+
+.favorites-count {
+  color: var(--main-bg-color);
+  position: absolute;
+  top: 50%;
+  right: -25px;
+  font-size: 14px;
+  background: #fff;
+  padding: 3px;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+}
+
 @media screen and (max-width: 970px) {
-  .logo{
+  .logo {
     font-size: 28px;
   }
-  .header a{
+  .header a {
     font-size: 22px;
   }
 }
 @media screen and (max-width: 900px) {
-  .header{
+  .header {
     flex-direction: column;
     padding: 10px 10%;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .header{
+  .header {
     flex-direction: column;
     padding: 10px 0%;
     width: 100%;
   }
-  .header{
+  .header {
     height: 4.3rem;
   }
   .header li {
     margin: 0px 0.7rem;
   }
-  .header a{
+  .header a {
     font-size: 22px;
+  }
+  .favorites--with-count {
+    margin-right: 15px;
   }
 }
 
 @media screen and (max-width: 420px) {
-  .logo{
+  .logo {
     font-size: 24px;
   }
-  .header{
+  .header {
     height: 3.5rem;
   }
-  .header a{
+  .header a {
     font-size: 20px;
   }
 }
 @media screen and (max-width: 420px) {
-  .logo{
+  .logo {
     font-size: 20px;
   }
-  .header{
+  .header {
     height: 3.2rem;
   }
   .header li {
     margin: 0px 0.5rem;
   }
-  .header a{
+  .header a {
     font-size: 18px;
   }
 }
 @media screen and (max-width: 350px) {
-
   .header li {
     margin: 0px 0.4rem;
   }
-
 }
