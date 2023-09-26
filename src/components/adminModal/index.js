@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useRef } from "react";
 import elementsStyles from "../../css/adminModal.module.css";
 
 import MeetupsContext from "../../store/meetUpsState";
