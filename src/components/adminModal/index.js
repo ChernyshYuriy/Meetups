@@ -19,20 +19,18 @@ function AdminModal() {
   const inputCode = useRef();
 
   const bodyGetAdmin = (
-    <>
-      <form className={elementsStyles.container}>
-        <input
-          autoFocus
-          className={elementsStyles.input}
-          ref={inputCode}
-          maxLength="12"
-          type="text"
-        />
-        <button className={elementsStyles.btn} onClick={checkCode}>
-          GET ADMIN
-        </button>
-      </form>
-    </>
+    <form className={elementsStyles.container}>
+      <input
+        autoFocus
+        className={elementsStyles.input}
+        ref={inputCode}
+        maxLength="12"
+        type="text"
+      />
+      <button className={elementsStyles.btn} onClick={checkCode}>
+        GET ADMIN
+      </button>
+    </form>
   );
   const logoutAdmin = (
     <>
