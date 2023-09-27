@@ -6,6 +6,7 @@ import { useContext, useEffect } from "react";
 import FavoritesContext from "../../store/favorites";
 import MeetupsContext from "../../store/meetUpsState.js";
 import AdminModal from "../adminModal/index.js";
+import TestModulPWE from "../testModuleTracker.js";
 function Layout(props) {
   const favoriteContext = useContext(FavoritesContext);
   const globalContext = useContext(MeetupsContext);
@@ -21,6 +22,7 @@ function Layout(props) {
       <Preloader />
       <ProgressBar />
       <MainNav />
+      <TestModulPWE />
       <main className={headerStyles.main}>{props.children}</main>
       <AdminModal />
     </div>

@@ -1,4 +1,9 @@
-function Form() {
+import { useState, useEffect } from "react";
+
+function TestModulPWE() {
+  let [showList, editList] = useState([]);
+  const List = [];
+  // let [List, setList] = useState([]);
   const getUserLocation = (onSuccess) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(onSuccess, (error) => {
@@ -10,27 +15,38 @@ function Form() {
   };
   function trackerList() {
     setTimeout(() => {
-      this.saveCoordinates();
-    }, 5000);
+      saveCoordinates();
+    }, 15000);
     // setInterval(() => {
     //   this.saveCoordinates();
     // }, 10000);
   }
 
+  const saveLocation = async (location, time) => {
+    await List.push({
+      lat: location.coords.latitude,
+      lon: location.coords.longitude,
+      time,
+    });
+    const newVal = [...List];
+    editList(newVal);
+  };
+
   async function saveCoordinates() {
     const date = new Date();
     const time = date.toLocaleTimeString();
-    getUserLocation((location) =>
-      this.tList.push({
-        lat: location.coords.latitude,
-        lon: location.coords.longitude,
-        time,
-      })
-    );
-    await this.trackerList();
-  }
+    console.log(showList, `List`);
 
-  return <div>1</div>;
+    getUserLocation((location) => saveLocation(location, time));
+    console.log(List, `list2`);
+    await trackerList();
+  }
+  useEffect(() => {
+    trackerList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return <div>{`${showList.map((item) => item.time)}`}</div>;
 }
 
-export default Form;
+export default TestModulPWE;
